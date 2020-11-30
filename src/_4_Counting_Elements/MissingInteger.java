@@ -1,34 +1,34 @@
 package _4_Counting_Elements;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class MissingInteger {
 
-	public static void main(String [] args) {
-		System.out.println(solution(new int[]{1, 3, 2, 1, 6, 4}));
+	public int solution(int[] A) {
+        Set<Integer> set = new HashSet<>(A.length);
+        for (int num : A) {
+            if (num > 0) {
+                set.add(num);
+            }
+        }
 
-		System.out.println(solution(new int[]{-1, -3, 5}));
+        for (int i = 1; i < 1_000_000; i++) {
+            if (!set.contains(i)) {
+                return i;
+            }
+        }
 
-		System.out.println(solution(new int[]{1, 2, 3, 4}));
+        throw new IllegalArgumentException("error");
+    }
 
-		System.out.println(solution(new int[]{-1, -3}));
-	}
-
-	private static int solution(int[] A) {
-		int length = A.length + 2;
-		boolean [] array = new boolean[length];
-
-		for (int number : A) {
-			if (number > 0 && length >= number) {
-				array[number] = true;
-			}
-		}
-
-		for (int i = 1; i < length; i++) {
-			if (!array[i]) {
-
-				return i;
-			}
-		}
-
-		return 1;
-	}
+    public static void main(String[] args) {
+        MissingInteger solution = new MissingInteger();
+        System.out.println(solution.solution(new int[] { -1, -3 }));
+        // 1
+        System.out.println(solution.solution(new int[] { 3, 2, 1, 5, 6 }));
+        // 4
+        System.out.println(solution.solution(new int[] { -1, 1, 2 }));
+        // 3
+    }
 }
